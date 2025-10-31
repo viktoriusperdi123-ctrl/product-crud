@@ -26,6 +26,13 @@ function ProductForm({ addProduct }) {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
+      <input
+        type="number"
+        placeholder="Stok"
+        value={stock}
+        onChange={(e) => setStock(e.target.value)}
+        required
+      />
       <button type="submit">Tambah</button>
     </form>
   );
