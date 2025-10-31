@@ -4,43 +4,34 @@ import ProductList from "./components/ProductList";
 import "./index.css";
 
 function App() {
-  const [products, setProducts] = useState(() => {
-    const saved = localStorage.getItem("products");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [products, setProducts] = useState([]);
 
-  const [editingProduct, setEditingProduct] = useState(null);
+  useEffect(() => {
+    const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
+    setProducts(savedProducts);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("products", JSON.stringify(products));
   }, [products]);
 
-  const addProduct = (product) => {
-    setProducts([...products, { id: Date.now(), ...product }]);
-  };
+  const addProduct = (product) => setProducts([...products, product]);
 
-  const updateProduct = (updatedProduct) => {
+  const updateProduct = (updatedProduct) =>
     setProducts(
       products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
     );
-    setEditingProduct(null);
-  };
 
-  const deleteProduct = (id) => {
+  const deleteProduct = (id) =>
     setProducts(products.filter((p) => p.id !== id));
-  };
 
   return (
     <div className="container">
-      <h1>CRUD Produk</h1>
-      <ProductForm
-        addProduct={addProduct}
-        updateProduct={updateProduct}
-        editingProduct={editingProduct}
-      />
+      <h1>📦 CRUD Produk React</h1>
+      <ProductForm addProduct={addProduct} />
       <ProductList
         products={products}
-        editProduct={setEditingProduct}
+        updateProduct={updateProduct}
         deleteProduct={deleteProduct}
       />
     </div>
