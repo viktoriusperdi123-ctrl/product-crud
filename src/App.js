@@ -4,7 +4,11 @@ import ProductList from "./components/ProductList";
 import "./index.css";
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    { id: 1, name: "Kopi Arabica", price: 25000, stock: 10 },
+    { id: 2, name: "Teh Hijau", price: 15000, stock: 5 }
+  ]);
+
 
   useEffect(() => {
     const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
